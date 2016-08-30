@@ -1,6 +1,6 @@
 ## Data visualization training projects from Free code camp
 
-### 1. [Markdown previewer](https://alexandr-bbm.github.io/fcc.data-visualization-projects/markdown-previewer)
+### 1. [Markdown previewer](https://alexandr-bbm.github.io/fcc.data-visualization-certification/markdown-previewer)
 
 Requirements ([src](https://www.freecodecamp.com/challenges/build-a-markdown-previewer)):
 
