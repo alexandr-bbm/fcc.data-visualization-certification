@@ -1,0 +1,8 @@
+.markdown-previewer {
+    margin-top: 100px;
+    &__textarea {
+        width: 100%;
+        min-height: 500px;
+        resize: vertical;
+    }
+}
