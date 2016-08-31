@@ -2,8 +2,8 @@
 
 ### 1. [Markdown previewer](https://alexandr-bbm.github.io/fcc.data-visualization-certification/markdown-previewer)
 
-Requirements ([src](https://www.freecodecamp.com/challenges/build-a-markdown-previewer)):
+ [Requirements](https://www.freecodecamp.com/challenges/build-a-markdown-previewer).
+ 
+### 2. [Camper Leaderboard](https://alexandr-bbm.github.io/fcc.data-visualization-certification/camper-leaderboard)
 
-  * You must use both Sass and React to build this project.
-  * User can type GitHub-flavored Markdown into a text area.
-  * User can see a preview of the output of my markdown that is updated as he types.
+ [Requirements](https://www.freecodecamp.com/challenges/build-a-camper-leaderboard).

@@ -1,0 +1,70 @@
+@mixin size($width, $height: $width) {
+    width: $width;
+    height: $height;
+}
+
+$table-bg: #fff;
+$strip-row-bg: #F1F8E9;
+
+.camper-leaderboard-wrapper {
+    display: flex;
+}
+
+.camper-leaderboard {
+    margin: 20px auto;
+    width: 710px;
+    font-family: Roboto, sans-serif;
+    table-layout: fixed;
+    background-color: $table-bg;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
+    &__th {
+        width: 200px;
+        &:focus {
+            outline: none !important;
+        }
+
+        &_sort {
+            cursor: pointer;
+            &:focus {
+                font-weight: 600;
+            }
+        }
+    }
+
+    td, th {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 10px;
+
+        a {
+            color: black;
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+    }
+
+    td:nth-child(3), td:nth-child(4) {
+        text-align: center;
+    }
+
+    tr:nth-child(even) {
+        background-color: $strip-row-bg;
+    }
+
+    &__avatar {
+        @include size(30px);
+        vertical-align: middle;
+    }
+
+    .reactable-header-sort-asc:after {
+        content: ' ▲';
+    }
+    .reactable-header-sort-desc:after {
+        content: ' ▼';
+    }
+}

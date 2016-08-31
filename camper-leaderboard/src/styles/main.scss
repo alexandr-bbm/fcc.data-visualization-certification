@@ -1,1 +1,9 @@
 @import "~reset-css/_reset.scss";
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+
+$backgroundColor: #f5f5f5;
+
+body{
+    background-color: $backgroundColor;
+    font-family: 'Roboto', sans-serif;
+}
