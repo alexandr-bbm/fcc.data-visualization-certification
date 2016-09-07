@@ -1,0 +1,44 @@
+.ingredients-col {
+    display: inline-block;
+    line-height: 48px;
+
+    &_right {
+        float: right;
+    }
+
+    &_title {
+        font-size: 15px;
+        font-weight: 500;
+    }
+}
+
+.ingredients-row {
+    margin-top: -20px;
+}
+
+.cleaarfix:after {
+    clear: both;
+    display: table;
+    content: ' ';
+}
+
+// Animations
+.recipe-card-ingredients {
+    &-enter {
+        opacity: 0;
+    }
+
+    &-enter.search-result-enter-active {
+        opacity: 1;
+        transition: opacity 0.5s ease;
+    }
+
+    &-leave {
+        opacity: 1
+    }
+
+    &-leave.search-result-leave-active {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+}

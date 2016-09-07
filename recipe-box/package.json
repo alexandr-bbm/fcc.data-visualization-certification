@@ -10,9 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "material-ui": "^0.15.4",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
-    "reset-css": "^2.0.2011012603"
+    "react-tap-event-plugin": "^1.0.0",
+    "reset-css": "^2.0.2011012603",
+    "shortid": "^2.2.6"
   },
   "devDependencies": {
     "webpack": "^1.13.1",

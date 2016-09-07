@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
-import App from 'components/app';
+import RecipeBox from 'components/RecipeBox';
 
 import './styles/main.scss';
 
-render(<App className="app" />, document.getElementById('content-entry'));
+render(<RecipeBox />, document.getElementById('content-entry'));
