@@ -5,7 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 export default class DialogConfirm extends React.Component {
     render () {
-        const {open, onConfirm, onClose} = this.props;
+        const {open, onConfirm, onClose, idToDelete} = this.props;
         const actions = [
             <FlatButton
                 label="Cancel"
@@ -15,7 +15,10 @@ export default class DialogConfirm extends React.Component {
             <RaisedButton
                 label="Delete"
                 primary={true}
-                onTouchTap={onConfirm}
+                onTouchTap={() => {
+                    onConfirm(idToDelete);
+                    onClose();
+                }}
             />,
         ];
         return (

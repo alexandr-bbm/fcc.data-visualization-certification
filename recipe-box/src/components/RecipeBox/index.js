@@ -4,6 +4,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import DialogCreate from 'components/Dialog/Create';
+import DialogConfirm from 'components/Dialog/Confirm';
+import DialogEdit from 'components/Dialog/Edit';
 import shortid from 'shortid';
 
 
@@ -49,39 +51,33 @@ const MOCK_RECIPES = [
         title: 'Russian Herring Under Fur Coat Salad (Shuba or Seledka Pod Shuboi)',
         ingredients: ["3 large potatoes boiled in their jackets, cooled, peeled and finely chopped or shredded", "4 large unppeeled carrots, boiled, cooled, peeled and finely chopped or shredded", "3 large beets boiled in their skins, cooled, peeled and finely chopped or shredded", "1 1/2 cups mayonnaise", "1 medium or large (depending on tastes) red or yellow onion, finely chopped", "4 fillets of pickled herring in oil, finely chopped", "4 large hard-cooked eggs, finely chopped", "Black pepper", "Parsley or dill for garnish (optional)"]
     },
-]
+];
 
 export default class RecipeBox extends React.Component {
 
     state = {
         recipes: [],
-        openCreateDialog: false
+        openCreateDialog: false,
+        openConfirmDialog: false,
+        openEditDialog: false,
+        _recipeIdToDelete: '',
     };
 
     STORAGE_KEY = 'recipes';
 
     componentDidMount () {
-        /**
-         * Check if user has recipes in LocalStorage and update state
-         */
         const localRecipes = this.getRecipesFromLocalStorage();
-        if (localRecipes) {
-            this.setState({
-                recipes: localRecipes
-            })
-        } else {
-            this.setState({
-                recipes: MOCK_RECIPES
-            })
-        }
+        this.setState({
+            recipes: localRecipes ? localRecipes : MOCK_RECIPES
+        })
     }
 
-    handleRecipeDelete = (recipeId , cb) => {
+    handleRecipeDelete = (recipeId) => {
         const recipes = this.state.recipes
             .slice()
             .filter((recipe) => recipe.id !== recipeId);
         this.saveRecipesToLocalStorage(recipes);
-        this.setState({recipes}, cb)
+        this.setState({recipes})
     };
 
     handleRecipeChange = (recipeId, editedRecipe) => {
@@ -109,16 +105,21 @@ export default class RecipeBox extends React.Component {
     }
 
     render () {
-        const {recipes, openCreateDialog} = this.state;
+        const {recipes, openCreateDialog, openConfirmDialog, openEditDialog, _recipeIdToDelete} = this.state;
+
         return (
             <MuiThemeProvider>
                 <div className="recipe-box-wrapper">
                     <div className="recipe-box">
-                        {recipes.map((recipe, i) => <RecipeCard recipe={recipe}
-                                                                key={i}
-                                                                onDelete={this.handleRecipeDelete}
-                                                                onRecipeChange={this.handleRecipeChange}
-                        />)}
+                        {recipes.map((recipe, i) => {
+                            return (
+                                <RecipeCard recipe={recipe}
+                                            key={i}
+                                            onEditRequest=""
+                                            onDeleteRequest={(recipeId) => this.openConfirmDialog(recipeId)}
+                                />
+                            )
+                        })}
                     </div>
                     <FloatingActionButton mini={true}
                                           style={{'position': 'fixed', 'top': '20px', 'right': '20px'}}
@@ -130,17 +131,27 @@ export default class RecipeBox extends React.Component {
                                   onSubmit={this.handleRecipeAdd}
                                   onClose={this.closeCreateDialog}
                     />
+                    <DialogConfirm open={openConfirmDialog}
+                                   idToDelete={_recipeIdToDelete}
+                                   onConfirm={this.handleRecipeDelete}
+                                   onClose={this.closeConfirmDialog}
+                    />
                 </div>
             </MuiThemeProvider>
         )
     }
 
-    closeCreateDialog = () => {
-        this.setState({openCreateDialog: false})
+    closeCreateDialog = () => this.setState({openCreateDialog: false});
+    openCreateDialog = () => this.setState({openCreateDialog: true});
+    openConfirmDialog = (recipeId) => {
+        this.setState({
+            openConfirmDialog: true,
+            _recipeIdToDelete: recipeId
+        });
     };
-    openCreateDialog = () => {
-        this.setState({openCreateDialog: true})
-    }
+    openEditDialog = () => this.setState({openEditDialog: true});
+    closeEditDialog = () => this.setState({openEditDialog: false});
+    closeConfirmDialog = () => this.setState({openConfirmDialog: false});
 }
 
 
