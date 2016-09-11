@@ -1,9 +1,26 @@
-## Data visualization training projects from Free code camp
+## Data visualization training projects from [freeCodeCamp](https://www.freecodecamp.com/alexandr-bbm).
 
-### 1. [Markdown previewer](https://alexandr-bbm.github.io/fcc.data-visualization-certification/markdown-previewer)
+All the projects are built with ReactJS on ES6 and Webpack for bundling.
 
- [Requirements](https://www.freecodecamp.com/challenges/build-a-markdown-previewer).
+### [Recipe Box](https://alexandr-bbm.github.io/fcc.data-visualization-certification/recipe-box)
+
+A simple CRUD app built with material-ui react component. Changes are saved to user's local storage.  
+
+[Requirements](https://www.freecodecamp.com/challenges/build-a-recipe-box).
+
  
-### 2. [Camper Leaderboard](https://alexandr-bbm.github.io/fcc.data-visualization-certification/camper-leaderboard)
+### [Camper Leaderboard](https://alexandr-bbm.github.io/fcc.data-visualization-certification/camper-leaderboard)
 
- [Requirements](https://www.freecodecamp.com/challenges/build-a-camper-leaderboard).
+Loads top users data from freeCodeCamp via API and provides an ability to sort results. Built with reactable react component.
+
+[Requirements](https://www.freecodecamp.com/challenges/build-a-camper-leaderboard).
+ 
+ 
+### [Markdown previewer](https://alexandr-bbm.github.io/fcc.data-visualization-certification/markdown-previewer)
+
+Live previewing of markdown.
+
+[Requirements](https://www.freecodecamp.com/challenges/build-a-markdown-previewer).
+
+ 
+
