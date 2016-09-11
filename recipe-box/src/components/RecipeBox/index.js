@@ -8,7 +8,6 @@ import DialogConfirm from 'components/Dialog/Confirm';
 import DialogEdit from 'components/Dialog/Edit';
 import shortid from 'shortid';
 
-
 import RecipeCard from 'components/RecipeCard';
 
 import './style.scss';
@@ -61,62 +60,65 @@ export default class RecipeBox extends React.Component {
         openConfirmDialog: false,
         openEditDialog: false,
         _recipeIdToDelete: '',
+        _recipeIdToEdit: '',
     };
 
-    STORAGE_KEY = 'recipes';
+    getRecipeById(id) {
+        return this.state.recipes.filter(elm => elm.id === id)[0];
+    }
 
     componentDidMount () {
-        const localRecipes = this.getRecipesFromLocalStorage();
+        const localRecipes = Storage.getItems();
         this.setState({
             recipes: localRecipes ? localRecipes : MOCK_RECIPES
         })
     }
 
     handleRecipeDelete = (recipeId) => {
-        const recipes = this.state.recipes
-            .slice()
+        const recipes = this.state.recipes.slice()
             .filter((recipe) => recipe.id !== recipeId);
-        this.saveRecipesToLocalStorage(recipes);
+        Storage.update(recipes);
         this.setState({recipes})
     };
 
-    handleRecipeChange = (recipeId, editedRecipe) => {
+    handleRecipeUpdate = (updatedRecipe) => {
         const recipes = this.state.recipes.slice();
         this.setState({
-            recipes: recipes.map((recipe) => recipe.id === recipeId ? editedRecipe : recipe)
+            recipes: recipes.map(recipe => recipe.id === updatedRecipe.id ? updatedRecipe : recipe)
         })
     };
 
     handleRecipeAdd = (newRecipe) => {
         const newRecipeWithId = {...newRecipe, id: shortid.generate()};
         const recipes = [...this.state.recipes, newRecipeWithId];
-        this.saveRecipesToLocalStorage(recipes);
+        Storage.update(recipes);
         this.setState({recipes})
     };
 
-    saveRecipesToLocalStorage (recipes) {
-        localStorage[this.STORAGE_KEY] = JSON.stringify(recipes);
-    }
-
-    getRecipesFromLocalStorage () {
-        const localRecipes = localStorage[this.STORAGE_KEY];
-        if (localRecipes) return JSON.parse(localRecipes);
-        return '';
-    }
-
     render () {
-        const {recipes, openCreateDialog, openConfirmDialog, openEditDialog, _recipeIdToDelete} = this.state;
+        const {
+            recipes,
+            openCreateDialog, openConfirmDialog, openEditDialog,
+            _recipeIdToDelete, _recipeIdToEdit} = this.state;
 
         return (
             <MuiThemeProvider>
                 <div className="recipe-box-wrapper">
                     <div className="recipe-box">
-                        {recipes.map((recipe, i) => {
+                        <div className="recipe-box__heading">
+                            <div className="recipe-box-title">
+                                RecipeBox App
+                            </div>
+                            <div className="recipe-box-subtitle">
+                                Vanilla React on ES6 + Material-UI. Synced with Local Storage.
+                            </div>
+                        </div>
+                        {recipes.map((recipe) => {
                             return (
                                 <RecipeCard recipe={recipe}
-                                            key={i}
-                                            onEditRequest=""
-                                            onDeleteRequest={(recipeId) => this.openConfirmDialog(recipeId)}
+                                            key={recipe.id}
+                                            onEditRequest={() => this.openEditDialog(recipe.id)}
+                                            onDeleteRequest={() => this.openConfirmDialog(recipe.id)}
                                 />
                             )
                         })}
@@ -136,6 +138,11 @@ export default class RecipeBox extends React.Component {
                                    onConfirm={this.handleRecipeDelete}
                                    onClose={this.closeConfirmDialog}
                     />
+                    <DialogEdit open={openEditDialog}
+                                initialItem={this.getRecipeById(_recipeIdToEdit)}
+                                onSubmit={this.handleRecipeUpdate}
+                                onClose={this.closeEditDialog}
+                    />
                 </div>
             </MuiThemeProvider>
         )
@@ -143,15 +150,38 @@ export default class RecipeBox extends React.Component {
 
     closeCreateDialog = () => this.setState({openCreateDialog: false});
     openCreateDialog = () => this.setState({openCreateDialog: true});
-    openConfirmDialog = (recipeId) => {
+    openConfirmDialog = recipeId => {
         this.setState({
+            _recipeIdToDelete: recipeId,
             openConfirmDialog: true,
-            _recipeIdToDelete: recipeId
         });
     };
-    openEditDialog = () => this.setState({openEditDialog: true});
+    openEditDialog = recipeId => {
+        this.setState({
+            _recipeIdToEdit: recipeId,
+        }, () => {
+            this.setState({
+                openEditDialog: true,
+            })
+        });
+    };
+
     closeEditDialog = () => this.setState({openEditDialog: false});
     closeConfirmDialog = () => this.setState({openConfirmDialog: false});
+}
+
+class Storage {
+    static STORAGE_KEY = 'recipes';
+
+    static update(items) {
+        localStorage[Storage.STORAGE_KEY] = JSON.stringify(items);
+    }
+
+    static getItems () {
+        const localItems = localStorage[Storage.STORAGE_KEY];
+        if (localItems) return JSON.parse(localItems);
+        return '';
+    }
 }
 
 

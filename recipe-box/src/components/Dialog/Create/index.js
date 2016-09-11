@@ -72,6 +72,7 @@ export default class DialogCreate extends React.Component {
     render () {
         const {open} = this.props;
         const {recipe} = this.state;
+        const formDisabled = recipe.ingredients.some(ingredient => ingredient == '') || recipe.title === '';
         const actions = [
             <FlatButton
                 label="Cancel"
@@ -82,6 +83,7 @@ export default class DialogCreate extends React.Component {
                 label="Create"
                 primary={true}
                 onTouchTap={this.handleSubmit}
+                disabled={formDisabled}
             />
         ];
         return (
@@ -90,30 +92,39 @@ export default class DialogCreate extends React.Component {
                 open={open}
                 onRequestClose={this.handleClose}
                 title='Add the recipe'
-                contentStyle={{'width': '370px'}}
+                contentStyle={{'width': '600px'}}
                 autoScrollBodyContent={true}
             >
                 <TextField
                     floatingLabelText='Title'
                     value={recipe.title}
                     onChange={this.handleTitleChange}
+                    fullWidth={true}
                 />
                 <p style={{'marginTop': '20px'}} >Ingredients</p>
                 {recipe.ingredients.map((ingredient, i) => {
                     return (
-                        <div key={recipe.id + '-' + i}>
-                            <TextField defaultValue={ingredient}
-                                       id={recipe.id + '-' + i}
-                                       onChange={(e) => {this.handleIngredientChange(e, i)}}
-                            />
-                            <IconButton onTouchTap={this.deleteIngredient.bind(this, i)}>
-                                <ContentClear />
-                            </IconButton>
+                        <div key={ingredient.id + '-' + i}>
+                            <div className="recipe-edit__ingredient-row">
+                                <div className="recipe-edit__ingredient-col">
+                                    <TextField value={ingredient}
+                                               id={ingredient.id + '-' + i}
+                                               onChange={e => {this.handleIngredientChange(e, i)}}
+                                               fullWidth={true}
+                                    />
+                                </div>
+                                <div className="recipe-edit__ingredient-col">
+                                    <IconButton onTouchTap={this.deleteIngredient.bind(this, i)}>
+                                        <ContentClear color="#676767" />
+                                    </IconButton>
+                                </div>
+                            </div>
                         </div>
-                    )})
+                    )
+                })
                 }
                 <FlatButton
-                    label="Add"
+                    label="Add ingredient"
                     onTouchTap={this.handleAddIngredient}
                 />,
             </Dialog>

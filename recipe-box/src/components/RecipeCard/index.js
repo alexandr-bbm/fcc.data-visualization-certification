@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
@@ -13,32 +13,25 @@ import './style.scss';
 
 export default class RecipeCard extends React.Component {
 
+    static propTypes = {
+        recipe: PropTypes.object.isRequired,
+        onEditRequest: PropTypes.func.isRequired,
+        onDeleteRequest: PropTypes.func.isRequired,
+    };
+
     state = {
-
+        expanded: false,
     };
 
-    handleDelete = () => {
-        const {recipe, onDelete} = this.props;
-        onDelete(recipe.id, this.closeConfirmDialog);
+    handleExpandChange = expanded => {
+        this.setState({expanded: expanded});
     };
-
-    handleChange = (recipe) => {
-        this.props.onRecipeChange(recipe.id, recipe);
-    };
-
-    processChangeIngredient(newIngredients) {
-        const {recipe, onRecipeChange} = this.props;
-        onRecipeChange(recipe.id, {
-            ...recipe,
-            ingredients: newIngredients
-        });
-    }
 
     render () {
         const {recipe, onEditRequest, onDeleteRequest} = this.props;
         return (
             <div className="recipe-card">
-                <Card>
+                <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
                     <CardHeader
                         title={recipe.title}
                         actAsExpander={true}
@@ -50,12 +43,11 @@ export default class RecipeCard extends React.Component {
                                 <div className="ingredients-col ingredients-col_title">Ingredients</div>
                                 <div className="ingredients-col ingredients-col_right">
                                     <IconButton tooltip="Edit"
-                                                onTouchTap={() => onEditRequest(recipe.id)}>
-                                        <ContentCreate />
+                                                onTouchTap={onEditRequest}>
+                                        <ContentCreate color="#00BCD4" />
                                     </IconButton>
-                                    <IconButton touch={true}
-                                                onTouchTap={() => onDeleteRequest(recipe.id)}>
-                                        <ActionDelete />
+                                    <IconButton onTouchTap={onDeleteRequest}>
+                                        <ActionDelete color="#FF4081" />
                                     </IconButton>
                                 </div>
 
@@ -70,11 +62,8 @@ export default class RecipeCard extends React.Component {
                             })}
                         </List>
                     </CardText>
-
                 </Card>
             </div>
         );
     }
-
-
 };

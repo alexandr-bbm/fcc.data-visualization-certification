@@ -1,0 +1,13 @@
+$widthOfRemoveIcon: 48px;
+
+.recipe-edit {
+  &__ingredient {
+      &-col {
+          display: inline-block;
+          &:first-child {
+              width: calc(100% - #{$widthOfRemoveIcon})
+          }
+      }
+
+  }
+}
