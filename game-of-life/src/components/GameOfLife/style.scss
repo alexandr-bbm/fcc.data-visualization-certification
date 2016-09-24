@@ -1,0 +1,62 @@
+.game-of-life {
+    text-align: center;
+
+    &__control-btn {
+        & + & {
+            margin-left: 10px;
+        }
+    }
+}
+
+.grid-container {
+    display: inline-block;
+}
+
+
+.grid {
+    $cellSize: 10px;
+    display: table;
+    border-collapse: collapse;
+    table-layout: fixed;
+    cursor: crosshair;
+
+    &__row {
+        display:table-row;
+    }
+
+    &__cell {
+        display: table-cell;
+        height: $cellSize;
+        width: $cellSize;
+        border: 1px solid #b2b2b2;
+        border-collapse: collapse;
+        box-sizing: border-box;
+        position: relative;
+
+        &:after {
+            content: '';
+            display: inline-block;
+            position: absolute;
+            width: 0;
+            height: 0;
+            top: $cellSize/2;
+            left: $cellSize/2;
+            transition: all .5s ease-in;
+            text-align: center;
+            background: #7d7d7d;
+            color: white;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        &_alive {
+            &:after {
+                width: $cellSize;
+                height: $cellSize;
+                border-radius: 50%;
+                top: 0;
+                left: 0;
+            }
+        }
+    }
+}

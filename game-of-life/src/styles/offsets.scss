@@ -1,0 +1,18 @@
+@mixin offset-margin($margin, $value){
+    margin-#{$margin}: $value !important;
+}
+
+@for $i from 1 through 20 {
+    .offset-t-#{$i}{
+        @include offset-margin(top, 10px * $i)
+    }
+    .offset-r-#{$i}{
+        @include offset-margin(right, 10px * $i)
+    }
+    .offset-b-#{$i}{
+        @include offset-margin(bottom, 10px * $i)
+    }
+    .offset-l-#{$i}{
+        @include offset-margin(left, 10px * $i)
+    }
+}
