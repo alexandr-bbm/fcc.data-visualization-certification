@@ -2,8 +2,16 @@
   text-align: center;
 }
 
+.game-of-life__control-btn {
+  width: 105px;
+}
+
 .game-of-life__control-btn + .game-of-life__control-btn {
   margin-left: 10px;
+}
+
+.game-of-life__control-btn_disabled {
+  pointer-events: none;
 }
 
 .grid-container {

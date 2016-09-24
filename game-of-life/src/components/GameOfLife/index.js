@@ -1,6 +1,9 @@
+// todo обработать ситуацию когда в игре не остается живых клеток.
+
 import React, {Component} from 'react';
 
 import Grid from './pureClasses/Grid';
+import Description from 'components/Description';
 
 import cloneInst from 'helpers/cloneInst';
 
@@ -27,6 +30,9 @@ export default class GameOfLife extends Component {
 
     start () {
         this.timer = setInterval(this.calcGeneration.bind(this), this.state.speed);
+        this.setState({
+            isRunning: true,
+        });
     }
 
     pause () {
@@ -95,14 +101,16 @@ export default class GameOfLife extends Component {
         return (
             <div className="container offset-t-1">
                 <div className="row">
-                    <div className="nine columns">
+                    <div className="six columns">
                         <div className="game-of-life">
                             {this.renderCounter()}
                             {this.renderControls()}
                             {this.renderGrid()}
                         </div>
                     </div>
-                    <div className="three columns">Description</div>
+                    <div className="six columns">
+                        <Description />
+                    </div>
                 </div>
             </div>
         )
@@ -113,15 +121,23 @@ export default class GameOfLife extends Component {
     }
 
     renderControls () {
+        const {isRunning} = this.state;
+
+        const btns = {
+            play: <button className="button-primary game-of-life__control-btn" onClick={() => this.start()}>
+                    Play
+                </button>,
+            pause: <button className="game-of-life__control-btn" onClick={() => this.pause()}>
+                    Pause
+                </button>,
+        };
+        const btnToShow = isRunning ? btns.pause : btns.play;
+
+        const disabledClearBtnClass = isRunning ? '' : 'game-of-life__control-btn_disabled';
         return (
             <div className="game-of-life__controls-container offset-b-1">
-                <button className="button-primary game-of-life__control-btn" onClick={() => this.start()}>
-                    Play
-                </button>
-                <button className="game-of-life__control-btn" onClick={() => this.pause()}>
-                    Pause
-                </button>
-                <button className="game-of-life__control-btn" onClick={() => this.clear()}>
+                {btnToShow}
+                <button className={'game-of-life__control-btn ' + disabledClearBtnClass} onClick={() => this.clear()}>
                     Clear
                 </button>
             </div>
