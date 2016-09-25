@@ -9,6 +9,9 @@
 
         &_disabled {
             pointer-events: none;
+            &.button-primary {
+                background-color: lighten(#33C3F0, 10%) !important;
+            }
         }
     }
 }

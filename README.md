@@ -1,6 +1,13 @@
 ## Data visualization training projects from [freeCodeCamp](https://www.freecodecamp.com/alexandr-bbm).
 
 All the projects are built with ReactJS on ES6 and Webpack for bundling.
+Click the heading of the project to view it in action. 
+
+### [Game of Life](https://alexandr-bbm.github.io/fcc.data-visualization-certification/game-of-life)
+
+A cellular automation representing the life. A player creates initial configuration and observes how it evolves.
+
+[Requirements](https://www.freecodecamp.com/challenges/build-a-recipe-box).
 
 ### [Recipe Box](https://alexandr-bbm.github.io/fcc.data-visualization-certification/recipe-box)
 

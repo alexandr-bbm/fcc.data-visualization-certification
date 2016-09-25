@@ -1,8 +1,9 @@
-// todo обработать ситуацию когда в игре не остается живых клеток.
+// todo 1. alert user when game is over
+// todo 2. alert user when grid is not changing
 
 import React, {Component} from 'react';
 
-import Grid from './pureClasses/Grid';
+import Grid, {initialArr} from './pureClasses/Grid';
 import Description from 'components/Description';
 
 import cloneInst from 'helpers/cloneInst';
@@ -11,7 +12,7 @@ import './style.scss';
 
 export default class GameOfLife extends Component {
     state = {
-        grid: new Grid,
+        grid: new Grid(initialArr),
         isRunning: false,
         speed: 1000,
         generation: 0,
@@ -66,10 +67,14 @@ export default class GameOfLife extends Component {
                 }
             }
         }
-        this.setState({
-            grid: nextGrid,
-            generation: generation + 1
-        })
+        if (nextGrid.aliveCells.length !== 0) {
+            this.setState({
+                grid: nextGrid,
+                generation: generation + 1
+            })
+        } else {
+            this.clear();
+        }
     }
 
     toggleCell (row, col) {
@@ -103,6 +108,7 @@ export default class GameOfLife extends Component {
                 <div className="row">
                     <div className="six columns">
                         <div className="game-of-life">
+                            <h4>Game of Life</h4>
                             {this.renderCounter()}
                             {this.renderControls()}
                             {this.renderGrid()}
@@ -121,10 +127,17 @@ export default class GameOfLife extends Component {
     }
 
     renderControls () {
-        const {isRunning} = this.state;
+        const {isRunning, grid} = this.state;
+
+        const disabledBtnClass = 'game-of-life__control-btn_disabled';
+
+        const disabledPlayBtnClass = grid.aliveCells.length === 0 ? disabledBtnClass : '';
+
+        const disabledClearBtnClass = isRunning ? '' : '';//disabledBtnClass;
+
 
         const btns = {
-            play: <button className="button-primary game-of-life__control-btn" onClick={() => this.start()}>
+            play: <button className={"button-primary game-of-life__control-btn " + disabledPlayBtnClass} onClick={() => this.start()}>
                     Play
                 </button>,
             pause: <button className="game-of-life__control-btn" onClick={() => this.pause()}>
@@ -133,7 +146,6 @@ export default class GameOfLife extends Component {
         };
         const btnToShow = isRunning ? btns.pause : btns.play;
 
-        const disabledClearBtnClass = isRunning ? '' : 'game-of-life__control-btn_disabled';
         return (
             <div className="game-of-life__controls-container offset-b-1">
                 {btnToShow}
