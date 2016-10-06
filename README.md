@@ -1,7 +1,9 @@
-## Data visualization training projects from [freeCodeCamp](https://www.freecodecamp.com/alexandr-bbm).
+# Data visualization training projects
 
+Click the heading of the project to go to its page. 
+
+## ReactJS
 All the projects are built with ReactJS on ES6 and Webpack for bundling.
-Click the heading of the project to view it in action. 
 
 ### [Game of Life](https://alexandr-bbm.github.io/fcc.data-visualization-certification/game-of-life)
 
@@ -29,5 +31,10 @@ Live previewing of markdown.
 
 [Requirements](https://www.freecodecamp.com/challenges/build-a-markdown-previewer).
 
- 
+## D3.js
 
+### [Bar chart](https://alexandr-bbm.github.io/fcc.data-visualization-certification/d3-projects/bar-chart)
+
+Interactive bar chart representing big array of data. 
+
+[Requirements](https://www.freecodecamp.com/challenges/visualize-data-with-a-bar-chart).
