@@ -1,0 +1,45 @@
+html, body {
+    min-height: 100%;
+}
+body {
+    background: url('./bg.jpg');
+    background-size: cover;
+}
+
+#scatterplot-graph {
+    margin: 50px auto;
+    max-width: 900px;
+    position: relative;
+    background-color: #fff;
+    opacity: .9;
+    border-radius: 5px;
+    padding: 10px;;
+}
+
+circle {
+    fill: white;
+    stroke-width: 2px;
+    stroke: black;
+    cursor: pointer;
+}
+
+.tick, .domain {
+    stroke-width: 2px;
+}
+
+.tick text {
+    font-size: 14px;
+}
+
+.tooltip {
+    position: absolute;
+    font-size: 20px;
+    text-align: center;
+    width: 200px;
+    padding: 10px 5px;
+    background: lightgray;
+    border-radius: 2px;
+    top: 140px;
+    left: 100px;
+}
+

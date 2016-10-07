@@ -3,43 +3,9 @@
 <head>
     <title>Scatterplot graph</title>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="./style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.6/d3.js"></script>
 </head>
-<style>
-    #scatterplot-graph {
-        margin: 50px auto;
-        max-width: 900px;
-        position: relative;
-    }
-
-    circle {
-        fill: white;
-        stroke-width: 2px;
-        stroke: black;
-    }
-
-    .tick, .domain {
-        stroke-width: 2px;
-    }
-
-    .tick text {
-        font-size: 14px;
-    }
-
-    div.tooltip {
-        position: absolute;
-        font-size: 20px;
-        text-align: center;
-        width: 200px;
-        padding: 10px 5px;
-        background: lightgray;
-        border-radius: 2px;
-        top: 140px;
-        left: 100px;
-    }
-    }
-
-</style>
 <body>
     <div id="scatterplot-graph"></div>
     <script src="./script.js"></script>
