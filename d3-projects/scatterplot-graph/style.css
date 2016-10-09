@@ -1,5 +1,6 @@
 html, body {
     min-height: 100%;
+    font: 12px Arial;
 }
 body {
     background: url('./bg.jpg');
@@ -16,8 +17,16 @@ body {
     padding: 10px;;
 }
 
+svg text {
+    font: 14px Arial;
+}
+
+text.cyclist-name {
+    cursor: pointer;
+}
+
 circle {
-    fill: white;
+    fill: black;
     stroke-width: 2px;
     stroke: black;
     cursor: pointer;
@@ -27,13 +36,13 @@ circle {
     stroke-width: 2px;
 }
 
-.tick text {
-    font-size: 14px;
-}
+/*.tick text {*/
+    /*font-size: 14px;*/
+/*}*/
 
 .tooltip {
     position: absolute;
-    font-size: 20px;
+    font-size: 14px;
     text-align: center;
     width: 200px;
     padding: 10px 5px;
