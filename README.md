@@ -38,3 +38,9 @@ Live previewing of markdown.
 Interactive bar chart representing big array of data. 
 
 [Requirements](https://www.freecodecamp.com/challenges/visualize-data-with-a-bar-chart).
+
+### [Scatterplot graph](https://alexandr-bbm.github.io/fcc.data-visualization-certification/d3-projects/scatterplot-graph)
+
+D3 Scatterplot Visualization
+
+[Requirements](https://www.freecodecamp.com/challenges/visualize-data-with-a-scatterplot-graph).
