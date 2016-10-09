@@ -8,11 +8,12 @@ function getData () {
 }
 getData().then((data) => {
 
-    var svg, margin, width, height, x, y;
+    var svg, margin, width, height, x, y, circleRadius;
 
     prepare();
     main();
     makeAxes();
+    makeLegends();
 
     function prepare () {
         // set the dimensions and margins of the graph
@@ -38,7 +39,7 @@ getData().then((data) => {
 
         // scale the range of the data
         const minMaxSeconds = d3.extent(data, (d) => d.Seconds);
-        x.domain([minMaxSeconds[0] - 30, minMaxSeconds[1] + 10]);
+        x.domain([minMaxSeconds[0] - 30, minMaxSeconds[1]]);
         y.domain([1, d3.max(data, (d) => d.Place) + 1]);
     }
 
@@ -52,8 +53,8 @@ getData().then((data) => {
             .data(data)
             .enter();
 
-        var circleRadius = 5,
-            transitionDuration = 200;
+        circleRadius = 5;
+        var transitionDuration = 200;
 
         var g = selection.append('g')
             .attr('transform', (d) => `translate(${x(d.Seconds)}, ${y(d.Place)})`)
@@ -62,9 +63,10 @@ getData().then((data) => {
                     .duration(transitionDuration)
                     .style('opacity', .9);
                 tooltip.html(` 
-                    <bold>${d.Name}</bold><br/>
+                    ${d.Name}<br/>
+                    Place: ${d.Place}<br/>
                     Nationality: ${d.Nationality} <br/>
-                    Year: ${d.Year}, Time:  ${d.Time} <br/> 
+                    Year: ${d.Year}, Time:  ${d.Time} <br/>  <br/> 
                     ${d.Doping}`
                 );
             })
@@ -87,6 +89,7 @@ getData().then((data) => {
 
         var circles = g.append('circle')
             .attr('r', circleRadius)
+            .attr('class', (d) => d.Doping ? 'circle_doping' : 'circle_pure');
 
 
     }
@@ -118,5 +121,41 @@ getData().then((data) => {
             .text('Place');
     }
 
+    function makeLegends () {
+        var gX = 600,
+            gY = 50,
+            offset = 50;
+
+        var g1 = svg
+            .append('g')
+            .attr('transform', translate(gX, gY));
+        g1
+            .append('circle')
+            .attr('r', circleRadius)
+            .attr('cy', -5)
+            .classed('circle_pure', true);
+        g1
+            .append('text')
+            .text('No doping allegations')
+            .attr('x', 15);
+
+        var g2 = svg
+            .append('g')
+            .attr('transform', translate(gX, gY + offset));
+        g2
+            .append('circle')
+            .attr('r', circleRadius)
+            .attr('cy', -5)
+            .classed('circle_doping', true);
+        g2
+            .append('text')
+            .text('Riders with doping allegations')
+            .attr('x', 15);
+    }
+
 
 });
+
+function translate(x, y) {
+    return `translate(${x}, ${y})`
+}

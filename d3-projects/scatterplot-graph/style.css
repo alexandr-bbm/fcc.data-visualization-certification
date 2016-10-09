@@ -7,38 +7,45 @@ body {
     background-size: cover;
 }
 
-#scatterplot-graph {
+.container {
     margin: 50px auto;
     max-width: 900px;
-    position: relative;
     background-color: #fff;
     opacity: .9;
     border-radius: 5px;
     padding: 10px;;
 }
 
+#scatterplot-graph {
+    position: relative;
+}
+
+.title {
+    text-align: center;
+}
+
 svg text {
     font: 14px Arial;
 }
 
-text.cyclist-name {
+text.cyclist-name, circle {
     cursor: pointer;
 }
 
-circle {
+text.cyclist-name:hover {
+    text-decoration: underline;
+}
+
+circle.circle_doping {
+    fill: red;
+}
+circle.circle_pure {
     fill: black;
-    stroke-width: 2px;
-    stroke: black;
-    cursor: pointer;
 }
 
 .tick, .domain {
     stroke-width: 2px;
 }
-
-/*.tick text {*/
-    /*font-size: 14px;*/
-/*}*/
 
 .tooltip {
     position: absolute;
